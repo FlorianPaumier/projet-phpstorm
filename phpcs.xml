@@ -1,0 +1,12 @@
+<?xml version="1.0"?>
+
+<ruleset name="MonFramework">
+    <description>Mes Règles de formatage</description>
+
+    <file>src</file>
+    <file>index.php</file>
+
+    <rule ref="PSR2"></rule>
+    <rule ref="Generic.Arrays.DisallowLongArraySyntax"></rule>
+
+</ruleset>
