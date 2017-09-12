@@ -1,8 +1,13 @@
 <?php
+
+use App\Blog\BlogModule;
+
 require '../vendor/autoload.php';
 
-    $app = new \Framework\App();
+    $app = new \Framework\App([
+        BlogModule::class
+    ]);
 
-    $reponse = $app->run(\GuzzleHttp\Psr7\ServerRequest::fromGlobals());
+    $response = $app->run(\GuzzleHttp\Psr7\ServerRequest::fromGlobals());
 
-    \Http\Response\send($reponse);
+    \Http\Response\send($response);
