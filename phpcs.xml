@@ -4,9 +4,8 @@
     <description>Mes Règles de formatage</description>
 
     <file>src</file>
-    <file>index.php</file>
+    <file>public/index.php</file>
 
     <rule ref="PSR2"></rule>
-    <rule ref="Generic.Arrays.DisallowLongArraySyntax"></rule>
 
 </ruleset>

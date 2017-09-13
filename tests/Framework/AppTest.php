@@ -20,12 +20,10 @@
             $this->assertEquals(301,$response->getStatusCode());
         }
 
-<<<<<<< HEAD
         /**
          * test de l'url et affichage de /blog
          */
-=======
->>>>>>> 81642e95df2c4b241c97cb0008030541dc97f9ba
+
         public function testBlog(){
             $app = new App([
                 BlogModule::class
@@ -40,12 +38,11 @@
             $this->assertContains('<h1>Bienvenue sur l\'article article-de-test</h1>', (string)$responseSingle->getBody());
         }
 
-<<<<<<< HEAD
+
         /**
          * test du retour d'une mauvaise url
          */
-=======
->>>>>>> 81642e95df2c4b241c97cb0008030541dc97f9ba
+
         public function testError404(){
             $app = new App();
             $request = new ServerRequest('GET', '/aza');
@@ -54,12 +51,10 @@
             $this->assertEquals(404 , $response->getStatusCode());
         }
 
-<<<<<<< HEAD
         /**
          * test du retour d'une lever d'excpetion sur l'url
          */
-=======
->>>>>>> 81642e95df2c4b241c97cb0008030541dc97f9ba
+
         public function testThrowExceptionIfNoResponseSend(){
             $app= new App([
                 ErroredModule::class
