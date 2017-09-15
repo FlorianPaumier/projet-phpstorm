@@ -1,13 +1,20 @@
 <?php
 
-    namespace Framework;
+    namespace Framework\Renderer;
 
-class Renderer
+class PHPRenderer implements RendererInterface
 {
 
     private $Paths = [];
     private $Globals = [];
     const default_namespace = '__MAIN';
+
+    public function __construct(?string $defaultpath = null)
+    {
+        if (!is_null($defaultpath)) {
+            $this->addPath($defaultpath);
+        }
+    }
 
     public function addPath(string $namespace, ?string $path = null): void
     {
@@ -22,7 +29,7 @@ class Renderer
     public function render(string $view, array $params = []): string
     {
         if ($this->hasNamespace($view)) {
-            $path = $this->replaceNamespace($view).'.php';
+            $path = $this->replaceNamespace($view).'.twig';
         } else {
             $path = $this->Paths[self::default_namespace] . DIRECTORY_SEPARATOR . $view . '.php';
         }
@@ -36,9 +43,9 @@ class Renderer
         return ob_get_clean();
     }
 
-    public function addGlobal(string $key, $valule): void
+    public function addGlobal(string $key, $value): void
     {
-        $this->Globals[$key] = $valule;
+        $this->Globals[$key] = $value;
     }
 
     private function hasNamespace(string $view): bool

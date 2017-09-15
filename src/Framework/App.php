@@ -25,7 +25,7 @@ class App
     {
         $this->router = new Router();
 
-        if (array_keys_exists('renderer', $dependencies)) {
+        if (array_key_exists('renderer', $dependencies)) {
             $dependencies['renderer']->addGlobal('router', $this->router);
         }
         foreach ($modules as $module) {
