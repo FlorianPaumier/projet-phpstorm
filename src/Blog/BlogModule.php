@@ -1,13 +1,15 @@
 <?php
     namespace App\Blog;
 
+    use App\Blog\Actions\BlogAction;
+    use Framework\Module;
     use Framework\Renderer\RendererInterface;
     use Framework\Router;
-    use Psr\Http\Message\ServerRequestInterface;
 
-class BlogModule
+class BlogModule extends Module
 {
 
+    const DEFENITIONS = __DIR__ . '/config.php';
 
     private $renderer;
 
@@ -16,37 +18,11 @@ class BlogModule
          * @param Router $router
          */
 
-    public function __construct(Router $router, RendererInterface $renderer)
+    public function __construct(string $prefix, Router $router, RendererInterface $renderer)
     {
         $this->renderer = $renderer;
         $this->renderer->addPath('blog', __DIR__ . '/views');
-        $router->get('/blog', [$this, 'index'], 'blog.index');
-        $router->get('/blog/{slug:[a-z\-]+}', [$this, 'show'], 'blog.show');
-    }
-
-
-    /**
-         * Fonction de gestion de l'index
-         * @param ServerRequestInterface $request
-         * @return string
-         */
-
-    public function index(ServerRequestInterface $request) : string
-    {
-        return $this->renderer->render('@blog/index');
-    }
-
-
-    /**
-         * Fonction de gestion du show des articles
-         * @param ServerRequestInterface $request
-         * @return string
-         */
-
-    public function show(ServerRequestInterface $request): string
-    {
-        return $this->renderer->render('@blog/show', [
-            'slug' => $request->getAttribute('slug')
-        ]);
+        $router->get($prefix, BlogAction::class, 'blog.index');
+        $router->get($prefix.'/{slug:[a-z\-]+}', BlogAction::class, 'blog.show');
     }
 }
