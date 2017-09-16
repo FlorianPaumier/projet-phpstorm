@@ -7,7 +7,7 @@ class PHPRenderer implements RendererInterface
 
     private $Paths = [];
     private $Globals = [];
-    const default_namespace = '__MAIN';
+    const DEFAULT_NAMESPACE = '__MAIN';
 
     public function __construct(?string $defaultpath = null)
     {
@@ -20,7 +20,7 @@ class PHPRenderer implements RendererInterface
     {
 
         if (is_null($path)) {
-            $this->Paths[self::default_namespace] = $namespace;
+            $this->Paths[self::DEFAULT_NAMESPACE] = $namespace;
         } else {
             $this->Paths[$namespace] = $path;
         }
@@ -31,7 +31,7 @@ class PHPRenderer implements RendererInterface
         if ($this->hasNamespace($view)) {
             $path = $this->replaceNamespace($view).'.twig';
         } else {
-            $path = $this->Paths[self::default_namespace] . DIRECTORY_SEPARATOR . $view . '.php';
+            $path = $this->Paths[self::DEFAULT_NAMESPACE] . DIRECTORY_SEPARATOR . $view . '.php';
         }
 
         ob_start();

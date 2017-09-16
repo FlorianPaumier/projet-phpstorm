@@ -19,6 +19,7 @@ namespace Framework {
         private $modules = [];
 
         private $container;
+
         /**
          * App constructor. On charge les modules de l'application
          * @param string[] tableau des modules à charger
@@ -82,6 +83,11 @@ namespace Framework {
             } else {
                 throw new \Exception('Erreur reponse != string || instance de Responseinterface');
             }
+        }
+
+        public function getContainer(): ContainerInterface
+        {
+             return $this->container;
         }
     }
 }
