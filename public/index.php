@@ -1,12 +1,14 @@
 <?php
 
 use App\Blog\BlogModule;
-use Framework\Renderer\RendererInterface;
+use App\Admin\AdminModule;
 use GuzzleHttp\Psr7\ServerRequest;
 
 require dirname(__DIR__) . '/vendor/autoload.php';
 
 $modules = [
+
+    AdminModule::class,
     BlogModule::class
 ];
 $builder = new \DI\ContainerBuilder();

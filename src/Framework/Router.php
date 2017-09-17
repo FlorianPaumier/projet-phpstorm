@@ -29,9 +29,19 @@ class Router
          * @param string | callable $callable
          * @param string $name
          */
-    public function get(string $path, $callable, string $name)
+    public function get(string $path, $callable, ?string $name = null)
     {
         $this->router->addRoute(new ZenRoute($path, $callable, ['GET'], $name));
+    }
+
+    public function post(string $path, $callable, ?string $name = null)
+    {
+        $this->router->addRoute(new ZenRoute($path, $callable, ['POST'], $name));
+    }
+
+    public function delete(string $path, $callable, ?string $name = null)
+    {
+        $this->router->addRoute(new ZenRoute($path, $callable, ['DELETE'], $name));
     }
     /**
          *
@@ -53,6 +63,16 @@ class Router
         return null;
     }
 
+    public function crud(string $prefixpath, $callable, string $prefixname)
+    {
+
+        $this->get("$prefixpath", $callable, $prefixname.'.index');
+        $this->get("$prefixpath/new", $callable, $prefixname.'.create');
+        $this->post("$prefixpath/new", $callable);
+        $this->get("$prefixpath/{id:\d+}", $callable, $prefixname.'.edit');
+        $this->post("$prefixpath/{id:\d+}", $callable);
+        $this->delete("$prefixpath/{id:\d+}", $callable, $prefixname.'.delete');
+    }
     /**
          * On génère une url selon un patern
          * @param string $name
