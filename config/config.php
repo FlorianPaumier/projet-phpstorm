@@ -2,8 +2,10 @@
 
 use \Framework\Renderer\RendererInterface;
 use \Framework\Renderer\TwigRendererFactory;
+use Framework\Session\PHPSession;
+use Framework\Session\SessionInterface;
 
-    return[
+return[
         'database.host' => 'localhost',
         'database.username' => 'root',
         'database.password' => '',
@@ -15,9 +17,10 @@ use \Framework\Renderer\TwigRendererFactory;
             \DI\get(\Framework\Route\RouteTwigExtenxion::class),
             \DI\get(\Framework\Twig\PagerFantaExtension::class),
             \DI\get(\Framework\Twig\TextExtension::class),
-            \DI\get(\Framework\Twig\TimeExtension::class)
+            \DI\get(\Framework\Twig\TimeExtension::class),
+            \DI\get(\Framework\Twig\FlashExtension::class)
         ],
-
+        SessionInterface::class => \DI\object(PHPSession::class),
         PDO::class => function(\Psr\Container\ContainerInterface $c){
             return new PDO('mysql:host='. $c->get('database.host') . ';dbname=' . $c->get('database.name'),
                 $c->get('database.username'),

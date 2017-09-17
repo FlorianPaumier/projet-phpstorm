@@ -6,6 +6,8 @@ namespace App\Blog\Actions {
     use Framework\Actions\RouterAwareAction;
     use Framework\Renderer\RendererInterface;
     use Framework\Router;
+    use Framework\Session\FlashService;
+    use Framework\Session\SessionInterface;
     use Psr\Http\Message\ServerRequestInterface;
 
     class AdminBlogAction
@@ -20,14 +22,28 @@ namespace App\Blog\Actions {
          * @var PostTable
          */
         private $postTable;
+        /**
+         * @var SessionInterface
+         */
+        private $session;
+        /**
+         * @var FlashService
+         */
+        private $flash;
 
         use RouterAwareAction;
 
-        public function __construct(RendererInterface $renderer, PostTable $postTable, Router $router)
-        {
+        public function __construct(
+            RendererInterface $renderer,
+            PostTable $postTable,
+            Router $router,
+            FlashService $flash
+        ) {
+        
             $this->renderer = $renderer;
             $this->router = $router;
             $this->postTable = $postTable;
+            $this->flash = $flash;
         }
 
 
@@ -58,7 +74,7 @@ namespace App\Blog\Actions {
 
             $items = $this->postTable->findPaginated(12, $params['p'] ?? 1);
 
-            return $this->renderer->render('@blog/admin/index', compact('items'));
+            return $this->renderer->render('@blog/admin/index', compact('items', 'session'));
         }
 
         public function edit(ServerRequestInterface $request)
@@ -72,6 +88,7 @@ namespace App\Blog\Actions {
                     'updated_at' => date('Y-m-d H:i:s')
                 ]);
                 $this->postTable->update($item->id, $params);
+                $this->flash->success('L\'article a bien été modifié');
                 return $this->redirect('blog.admin.index');
             }
             return $this->renderer->render('@blog/admin/edit', compact('item'));
