@@ -38,7 +38,7 @@ namespace App\Blog\Actions {
             if ($request->getAttribute('id')) {
                 return $this->show($request);
             }
-                return $this->index();
+                return $this->index($request);
         }
         /**
          * Fonction de gestion de l'index
@@ -46,9 +46,12 @@ namespace App\Blog\Actions {
          * @return string
          */
 
-        public function index() : string
+        public function index(ServerRequestInterface $request) : string
         {
-            $posts = $this->postTable->findPaginated();
+            $params = $request->getQueryParams();
+
+
+            $posts = $this->postTable->findPaginated(12, $params['p'] ?? 1);
 
             return $this->renderer->render('@blog/index', compact('posts'));
         }

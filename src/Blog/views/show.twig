@@ -2,6 +2,8 @@
 {% block title post.name %}
 {% block body %}
 <h1>{{ post.name }}</h1>
-
+<p class="text-muted">
+    {{ post.created_at | timeago }}
+</p>
 {{ post.content | nl2br }}
 {% endblock %}

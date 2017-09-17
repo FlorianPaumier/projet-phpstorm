@@ -59,8 +59,12 @@ class Router
          * @param array $Params
          * @return null|string
          */
-    public function generateUri(string $name, array $Params) : ?string
+    public function generateUri(string $name, array $Params = [], array $queryArgs = []) : ?string
     {
-        return $this->router->generateUri($name, $Params);
+        $uri =$this->router->generateUri($name, $Params);
+        if (!empty($queryArgs)) {
+            return $uri . '?' . http_build_query($queryArgs);
+        }
+        return $uri;
     }
 }

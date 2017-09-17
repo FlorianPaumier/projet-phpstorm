@@ -12,7 +12,10 @@ use \Framework\Renderer\TwigRendererFactory;
         \Framework\Router::class => \DI\object(),
         'views.path' => dirname(__DIR__) . '\views',
         'twig.extensions' => [
-            \DI\get(\Framework\Route\RouteTwigExtenxion::class)
+            \DI\get(\Framework\Route\RouteTwigExtenxion::class),
+            \DI\get(\Framework\Twig\PagerFantaExtension::class),
+            \DI\get(\Framework\Twig\TextExtension::class),
+            \DI\get(\Framework\Twig\TimeExtension::class)
         ],
 
         PDO::class => function(\Psr\Container\ContainerInterface $c){
