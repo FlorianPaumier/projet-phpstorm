@@ -92,7 +92,7 @@ class Validator
      */
     public function slug(string $key): self
     {
-        $pattern = '/^([a-z09]+-?)+$/';
+        $pattern = '/^[a-z09]+(-[a-z0-9]+)*$/';
         $value = $this->getValue($key);
 
         if (is_null($value)) {

@@ -18,7 +18,8 @@ return[
             \DI\get(\Framework\Twig\PagerFantaExtension::class),
             \DI\get(\Framework\Twig\TextExtension::class),
             \DI\get(\Framework\Twig\TimeExtension::class),
-            \DI\get(\Framework\Twig\FlashExtension::class)
+            \DI\get(\Framework\Twig\FlashExtension::class),
+            \DI\get(\Framework\Twig\FormExtenxion::class)
         ],
         SessionInterface::class => \DI\object(PHPSession::class),
         PDO::class => function(\Psr\Container\ContainerInterface $c){
