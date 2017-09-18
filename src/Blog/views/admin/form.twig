@@ -1,4 +1,7 @@
 <div class="form-group">
+     {% for error in errors %}
+        <p>{{ error }}</p>
+    {% endfor %}
     <label for="name">Titre de l'article</label>
     <input type="text" class="form-control" name="name" id="name" value="{{ item.name }}">
 </div>
